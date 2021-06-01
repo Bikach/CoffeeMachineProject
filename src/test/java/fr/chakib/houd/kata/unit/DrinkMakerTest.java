@@ -1,6 +1,7 @@
 package fr.chakib.houd.kata.unit;
 
 import fr.chakib.houd.kata.domain.manufacture.DrinkMaker;
+import fr.chakib.houd.kata.domain.manufacture.Protocole;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class DrinkMakerTest {
     class WithoutSugar {
         @Test
         void shouldBeAbleToSendInstructionsForMakingATeaWithoutSugar() {
-            drinkMaker.order("T::");
+            drinkMaker.order(new Protocole("T::"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -23,7 +24,7 @@ class DrinkMakerTest {
 
         @Test
         void shouldBeAbleToSendInstructionsForMakingACoffeeWithoutSugar() {
-            drinkMaker.order("C::");
+            drinkMaker.order(new Protocole("C::"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -32,7 +33,7 @@ class DrinkMakerTest {
 
         @Test
         void shouldBeAbleToSendInstructionsForMakingAChocolateWithoutSugar() {
-            drinkMaker.order("H::");
+            drinkMaker.order(new Protocole("H::"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -45,7 +46,7 @@ class DrinkMakerTest {
     class WithSugar {
         @Test
         void shouldBeAbleToSendInstructionsForMakingATeaWitAtSugar() {
-            drinkMaker.order("T:1:0");
+            drinkMaker.order(new Protocole("T:1:0"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -54,7 +55,7 @@ class DrinkMakerTest {
 
         @Test
         void shouldBeAbleToSendInstructionsForMakingACoffeeWitAtSugar() {
-            drinkMaker.order("C:1:0");
+            drinkMaker.order(new Protocole("C:1:0"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -63,7 +64,7 @@ class DrinkMakerTest {
 
         @Test
         void shouldBeAbleToSendInstructionsForMakingAChocolateWitAtSugar() {
-            drinkMaker.order("H:1:0");
+            drinkMaker.order(new Protocole("H:1:0"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
@@ -75,7 +76,7 @@ class DrinkMakerTest {
     class CustomerInformation {
         @Test
         void shouldBeAbleToSendInstructionsToInformTheCustomerThatTheyWillReceiveAMessageForTheirOrder() {
-            drinkMaker.order("M:message-content");
+            drinkMaker.order(new Protocole("M:message-content"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 
