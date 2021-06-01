@@ -11,66 +11,72 @@ class DrinkMakerTest {
 
     DrinkMaker drinkMaker = new DrinkMaker();
 
-    @Nested
-    class WithoutSugar {
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingATeaWithoutSugar() {
-            drinkMaker.order(new Protocole("T::"));
-
-            var instructionsSent = drinkMaker.sendInstruction();
-
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 tea with no sugar and therefore no stick");
-        }
-
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingACoffeeWithoutSugar() {
-            drinkMaker.order(new Protocole("C::"));
-
-            var instructionsSent = drinkMaker.sendInstruction();
-
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with no sugar and therefore no stick");
-        }
-
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingAChocolateWithoutSugar() {
-            drinkMaker.order(new Protocole("H::"));
-
-            var instructionsSent = drinkMaker.sendInstruction();
-
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with no sugar and therefore no stick");
-        }
-
-    }
 
     @Nested
-    class WithSugar {
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingATeaWitAtSugar() {
-            drinkMaker.order(new Protocole("T:1:0"));
+    class ShouldMakeADrink {
+        @Nested
+        class WithoutSugar {
+            @Test
+            void thenSendInstructionsThatContainsATeaWithoutStick() {
+                drinkMaker.order(new Protocole("T::"));
 
-            var instructionsSent = drinkMaker.sendInstruction();
+                var instructionsSent = drinkMaker.sendInstruction();
 
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 tea with 1 sugar and a stick");
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 tea with no sugar and therefore no stick");
+            }
+
+            @Test
+            void thenSendInstructionsThatContainsACoffeeWithoutStick() {
+                drinkMaker.order(new Protocole("C::"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with no sugar and therefore no stick");
+            }
+
+            @Test
+            void thenSendInstructionsThatContainsAChocolateWithoutStick() {
+                drinkMaker.order(new Protocole("H::"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with no sugar and therefore no stick");
+            }
+
         }
 
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingACoffeeWitAtSugar() {
-            drinkMaker.order(new Protocole("C:1:0"));
+        @Nested
+        class WithSugar {
+            @Test
+            void thenSendInstructionsThatContainsATeaWithAStick() {
+                drinkMaker.order(new Protocole("T:1:0"));
 
-            var instructionsSent = drinkMaker.sendInstruction();
+                var instructionsSent = drinkMaker.sendInstruction();
 
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with 1 sugar and a stick");
-        }
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 tea with 1 sugar and a stick");
+            }
 
-        @Test
-        void shouldBeAbleToSendInstructionsForMakingAChocolateWitAtSugar() {
-            drinkMaker.order(new Protocole("H:1:0"));
+            @Test
+            void thenSendInstructionsThatContainsACoffeeWithAStick() {
+                drinkMaker.order(new Protocole("C:2:0"));
 
-            var instructionsSent = drinkMaker.sendInstruction();
+                var instructionsSent = drinkMaker.sendInstruction();
 
-            assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with 1 sugar and a stick");
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with 2 sugar and a stick");
+            }
+
+            @Test
+            void thenSendInstructionsThatContainsAChocolateWithAStick() {
+                drinkMaker.order(new Protocole("H:1:0"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with 1 sugar and a stick");
+            }
         }
     }
+
+
 
     @Nested
     class CustomerInformation {
