@@ -2,7 +2,7 @@ package fr.chakib.houd.kata.manufacture.unit;
 
 import fr.chakib.houd.kata.manufacture.core.usecase.DrinkMaker;
 import fr.chakib.houd.kata.manufacture.core.domain.DrinkProtocoleException;
-import fr.chakib.houd.kata.manufacture.core.domain.Protocole;
+import fr.chakib.houd.kata.manufacture.core.domain.Protocol;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class DrinkMakerTest {
         class WithoutSugar {
             @Test
             void thenSendInstructionsThatContainsATeaWithoutStick() {
-                drinkMaker.order(new Protocole("T:0:0.4"));
+                drinkMaker.order(new Protocol("T:0:0.4"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -29,7 +29,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsACoffeeWithoutStick() {
-                drinkMaker.order(new Protocole("C:0:0.6"));
+                drinkMaker.order(new Protocol("C:0:0.6"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -38,7 +38,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsAChocolateWithoutStick() {
-                drinkMaker.order(new Protocole("H:0:0.5"));
+                drinkMaker.order(new Protocol("H:0:0.5"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -51,7 +51,7 @@ class DrinkMakerTest {
         class WithSugar {
             @Test
             void thenSendInstructionsThatContainsATeaWithAStick() {
-                drinkMaker.order(new Protocole("T:1:0.4"));
+                drinkMaker.order(new Protocol("T:1:0.4"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -60,7 +60,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsACoffeeWithAStick() {
-                drinkMaker.order(new Protocole("C:2:0.6"));
+                drinkMaker.order(new Protocol("C:2:0.6"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -69,7 +69,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsAChocolateWithAStick() {
-                drinkMaker.order(new Protocole("H:1:0.5"));
+                drinkMaker.order(new Protocol("H:1:0.5"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -81,7 +81,7 @@ class DrinkMakerTest {
         class WithExactAmount {
             @Test
             void forMakeATeaWithAnySugarNumber() {
-                drinkMaker.order(new Protocole("T:1:0.4"));
+                drinkMaker.order(new Protocol("T:1:0.4"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -90,7 +90,7 @@ class DrinkMakerTest {
 
             @Test
             void forMakeACoffeeWithAnySugarNumber() {
-                drinkMaker.order(new Protocole("C:0:0.6"));
+                drinkMaker.order(new Protocol("C:0:0.6"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -100,7 +100,7 @@ class DrinkMakerTest {
 
             @Test
             void forMakeAChocolateWithAnySugarNumber() {
-                drinkMaker.order(new Protocole("H:4:0.5"));
+                drinkMaker.order(new Protocol("H:4:0.5"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -117,7 +117,7 @@ class DrinkMakerTest {
             @Test
             void thenSendInstructionThatTheDrinkProtocolIsNotSupported() {
                 assertThatThrownBy(() -> {
-                    drinkMaker.order(new Protocole("Z::"));
+                    drinkMaker.order(new Protocol("Z::"));
                     drinkMaker.sendInstruction();
                 }).isInstanceOf(DrinkProtocoleException.class)
                     .hasMessageContaining("the drink protocol is not supported by the machine.");
@@ -129,7 +129,7 @@ class DrinkMakerTest {
     class CustomerInformation {
         @Test
         void shouldBeAbleToSendInstructionsToInformTheCustomerThatTheyWillReceiveAMessageForTheirOrder() {
-            drinkMaker.order(new Protocole("M:message-content"));
+            drinkMaker.order(new Protocol("M:message-content"));
 
             var instructionsSent = drinkMaker.sendInstruction();
 

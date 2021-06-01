@@ -3,32 +3,42 @@ package fr.chakib.houd.kata.manufacture.core.domain;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
-public class Protocole {
+public class Protocol {
 
     private static final String DELIMITER = ":";
-    private static final String TEA_PROTOCOLE = "T";
-    private static final String COFFEE_PROTOCOLE = "C";
     private static final String CHOCOLATE_PROTOCOLE = "H";
     private static final String INFORMATION_PROTOCOLE = "M";
 
     private static final int DRINK_INDEX = 0;
     private static final int SUGAR_INDEX = 1;
+    private static final int AMOUNT_INDEX = 2;
     private static final int NO_SUGAR = 0;
 
     private final String order;
+    private final TeaDrink tea = new TeaDrink();
+    private final CoffeeDrink coffee = new CoffeeDrink();
+    private final ChocolateDrink chocolate = new ChocolateDrink();
 
-    public Protocole(String order) {
+    public Protocol(String order) {
         this.order = order;
     }
 
     public String drink() {
-        if(hasDrinkInstructionWithA(TEA_PROTOCOLE) && amountInstruction().equals("0.4"))
+        if(tea.validDrinkProtocol(drinkProtocole()) && tea.validAmountProtocol(amountProtocol()))
             return "tea";
-        if(hasDrinkInstructionWithA(COFFEE_PROTOCOLE) && amountInstruction().equals("0.6"))
+        if(coffee.validDrinkProtocol(drinkProtocole()) && coffee.validAmountProtocol(amountProtocol()))
             return "coffee";
-        if(hasDrinkInstructionWithA(CHOCOLATE_PROTOCOLE) && amountInstruction().equals("0.5"))
+        if(chocolate.validDrinkProtocol(drinkProtocole()) && chocolate.validAmountProtocol(amountProtocol()))
             return "chocolate";
         throw new DrinkProtocoleException();
+    }
+
+    private String drinkProtocole() {
+        return extractInstructions()[DRINK_INDEX];
+    }
+
+    private String amountProtocol() {
+        return extractInstructions()[AMOUNT_INDEX];
     }
 
     public String sugar(){
@@ -52,7 +62,7 @@ public class Protocole {
     }
 
     private boolean hasDrinkInstructionWithA(String drinkProtocole) {
-        return extractInstructions()[DRINK_INDEX].equals(drinkProtocole);
+        return drinkProtocole().equals(drinkProtocole);
     }
 
     private int sugarNumber(){
@@ -67,10 +77,6 @@ public class Protocole {
 
     private String sugarInstruction() {
         return extractInstructions()[SUGAR_INDEX];
-    }
-
-    private boolean hasNotAmountGreaterThanAZero() {
-        return amountInstruction().equals("0");
     }
 
     private String amountInstruction() {
