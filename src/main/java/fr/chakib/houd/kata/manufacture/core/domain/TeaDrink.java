@@ -4,12 +4,13 @@ public class TeaDrink {
 
     private static final String PROTOCOL = "T";
     private static final float AMOUNT = 0.4f;
+    private static final String INSTRUCTION = "tea";
 
-    public boolean validDrinkProtocol(String drinkProtocol) {
-        return PROTOCOL.equals(drinkProtocol);
+    public boolean validProtocols(String drinkProtocol, String amountProtocol){
+        return PROTOCOL.equals(drinkProtocol) && AMOUNT == Float.parseFloat(amountProtocol);
     }
 
-    public boolean validAmountProtocol(String amountProtocol) {
-        return AMOUNT == Float.parseFloat(amountProtocol);
+    public String instruction() {
+        return INSTRUCTION;
     }
 }

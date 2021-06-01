@@ -117,7 +117,7 @@ class DrinkMakerTest {
             @Test
             void thenSendInstructionThatTheDrinkProtocolIsNotSupported() {
                 assertThatThrownBy(() -> {
-                    drinkMaker.order(new Protocol("Z::"));
+                    drinkMaker.order(new Protocol("Z:0:0"));
                     drinkMaker.sendInstruction();
                 }).isInstanceOf(DrinkProtocoleException.class)
                     .hasMessageContaining("the drink protocol is not supported by the machine.");

@@ -6,7 +6,6 @@ import static java.lang.String.valueOf;
 public class Protocol {
 
     private static final String DELIMITER = ":";
-    private static final String CHOCOLATE_PROTOCOLE = "H";
     private static final String INFORMATION_PROTOCOLE = "M";
 
     private static final int DRINK_INDEX = 0;
@@ -14,23 +13,28 @@ public class Protocol {
     private static final int AMOUNT_INDEX = 2;
     private static final int NO_SUGAR = 0;
 
-    private final String order;
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
     private final ChocolateDrink chocolate = new ChocolateDrink();
+
+    private final String order;
 
     public Protocol(String order) {
         this.order = order;
     }
 
     public String drink() {
-        if(tea.validDrinkProtocol(drinkProtocole()) && tea.validAmountProtocol(amountProtocol()))
-            return "tea";
-        if(coffee.validDrinkProtocol(drinkProtocole()) && coffee.validAmountProtocol(amountProtocol()))
-            return "coffee";
-        if(chocolate.validDrinkProtocol(drinkProtocole()) && chocolate.validAmountProtocol(amountProtocol()))
-            return "chocolate";
+        if(tea.validProtocols(drinkProtocole(), amountProtocol()))
+            return tea.instruction();
+        if(coffee.validProtocols(drinkProtocole(), amountProtocol()))
+            return coffee.instruction();
+        if(chocolate.validProtocols(drinkProtocole(), amountProtocol()))
+            return chocolate.instruction();
         throw new DrinkProtocoleException();
+    }
+
+    private String[] extractInstructions() {
+        return order.split(DELIMITER);
     }
 
     private String drinkProtocole() {
@@ -39,6 +43,10 @@ public class Protocol {
 
     private String amountProtocol() {
         return extractInstructions()[AMOUNT_INDEX];
+    }
+
+    private String sugarInstruction() {
+        return extractInstructions()[SUGAR_INDEX];
     }
 
     public String sugar(){
@@ -54,15 +62,7 @@ public class Protocol {
     }
 
     public boolean containInformationProtocole() {
-        return hasDrinkInstructionWithA(INFORMATION_PROTOCOLE);
-    }
-
-    private String[] extractInstructions() {
-        return order.split(DELIMITER);
-    }
-
-    private boolean hasDrinkInstructionWithA(String drinkProtocole) {
-        return drinkProtocole().equals(drinkProtocole);
+        return drinkProtocole().equals(INFORMATION_PROTOCOLE);
     }
 
     private int sugarNumber(){
@@ -73,15 +73,5 @@ public class Protocol {
 
     private boolean hasAtLeastOneSugar() {
         return parseInt(extractInstructions()[SUGAR_INDEX]) > 0;
-    }
-
-    private String sugarInstruction() {
-        return extractInstructions()[SUGAR_INDEX];
-    }
-
-    private String amountInstruction() {
-        if(extractInstructions().length < 3)
-            return "0";
-        return extractInstructions()[2];
     }
 }
