@@ -8,6 +8,7 @@ public class Protocole {
     private static final String DELIMITER = ":";
     private static final String TEA_PROTOCOLE = "T";
     private static final String COFFEE_PROTOCOLE = "C";
+    private static final String CHOCOLATE_PROTOCOLE = "H";
     private static final String INFORMATION_PROTOCOLE = "M";
 
     private static final int DRINK_INDEX = 0;
@@ -25,7 +26,9 @@ public class Protocole {
             return "tea";
         if(hasDrinkInstructionWithA(COFFEE_PROTOCOLE))
             return "coffee";
-        return "chocolate";
+        if(hasDrinkInstructionWithA(CHOCOLATE_PROTOCOLE))
+            return "chocolate";
+        throw new DrinkProtocoleException();
     }
 
     public String sugar(){

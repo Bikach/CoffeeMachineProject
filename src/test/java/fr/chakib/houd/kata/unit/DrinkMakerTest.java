@@ -1,11 +1,13 @@
 package fr.chakib.houd.kata.unit;
 
 import fr.chakib.houd.kata.domain.manufacture.DrinkMaker;
+import fr.chakib.houd.kata.domain.manufacture.DrinkProtocoleException;
 import fr.chakib.houd.kata.domain.manufacture.Protocole;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class DrinkMakerTest {
 
@@ -77,6 +79,20 @@ class DrinkMakerTest {
     }
 
 
+    @Nested
+    class ShouldNotMakeADrink {
+        @Nested
+        class WithABadDrinkInstruction {
+            @Test
+            void thenSendInstructionThatTheDrinkProtocolIsNotSupported() {
+                assertThatThrownBy(() -> {
+                    drinkMaker.order(new Protocole("Z::"));
+                    drinkMaker.sendInstruction();
+                }).isInstanceOf(DrinkProtocoleException.class)
+                    .hasMessageContaining("the drink protocol is not supported by the machine.");
+            }
+        }
+    }
 
     @Nested
     class CustomerInformation {
@@ -90,5 +106,7 @@ class DrinkMakerTest {
                     .isEqualTo("Drink maker forwards any message received onto the coffee machine interface for the customer to see");
         }
     }
+
+
 
 }
