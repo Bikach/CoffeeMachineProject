@@ -1,4 +1,6 @@
-package fr.chakib.houd.kata.manufacture.core.domain;
+package fr.chakib.houd.kata.manufacture.core.usecase;
+
+import fr.chakib.houd.kata.manufacture.core.domain.Protocole;
 
 import static java.lang.String.format;
 

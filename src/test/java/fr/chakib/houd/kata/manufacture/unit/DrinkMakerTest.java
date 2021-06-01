@@ -1,6 +1,6 @@
 package fr.chakib.houd.kata.manufacture.unit;
 
-import fr.chakib.houd.kata.manufacture.core.domain.DrinkMaker;
+import fr.chakib.houd.kata.manufacture.core.usecase.DrinkMaker;
 import fr.chakib.houd.kata.manufacture.core.domain.DrinkProtocoleException;
 import fr.chakib.houd.kata.manufacture.core.domain.Protocole;
 import org.junit.jupiter.api.Nested;
