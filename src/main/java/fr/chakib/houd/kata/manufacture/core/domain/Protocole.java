@@ -1,4 +1,4 @@
-package fr.chakib.houd.kata.domain.manufacture;
+package fr.chakib.houd.kata.manufacture.core.domain;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
@@ -22,11 +22,11 @@ public class Protocole {
     }
 
     public String drink() {
-        if(hasDrinkInstructionWithA(TEA_PROTOCOLE))
+        if(hasDrinkInstructionWithA(TEA_PROTOCOLE) && amountInstruction().equals("0.4"))
             return "tea";
-        if(hasDrinkInstructionWithA(COFFEE_PROTOCOLE))
+        if(hasDrinkInstructionWithA(COFFEE_PROTOCOLE) && amountInstruction().equals("0.6"))
             return "coffee";
-        if(hasDrinkInstructionWithA(CHOCOLATE_PROTOCOLE))
+        if(hasDrinkInstructionWithA(CHOCOLATE_PROTOCOLE) && amountInstruction().equals("0.5"))
             return "chocolate";
         throw new DrinkProtocoleException();
     }
@@ -38,7 +38,7 @@ public class Protocole {
     }
 
     public String stick(){
-        if(sugarInstructionIsPresent())
+        if(hasAtLeastOneSugar())
             return "a";
         return "therefore no";
     }
@@ -56,16 +56,26 @@ public class Protocole {
     }
 
     private int sugarNumber(){
-        if(sugarInstructionIsPresent())
+        if(hasAtLeastOneSugar())
             return parseInt(sugarInstruction());
         return NO_SUGAR;
     }
 
-    private boolean sugarInstructionIsPresent() {
-        return extractInstructions().length >= 2;
+    private boolean hasAtLeastOneSugar() {
+        return parseInt(extractInstructions()[SUGAR_INDEX]) > 0;
     }
 
     private String sugarInstruction() {
         return extractInstructions()[SUGAR_INDEX];
+    }
+
+    private boolean hasNotAmountGreaterThanAZero() {
+        return amountInstruction().equals("0");
+    }
+
+    private String amountInstruction() {
+        if(extractInstructions().length < 3)
+            return "0";
+        return extractInstructions()[2];
     }
 }

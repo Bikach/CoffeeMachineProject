@@ -1,8 +1,8 @@
-package fr.chakib.houd.kata.unit;
+package fr.chakib.houd.kata.manufacture.unit;
 
-import fr.chakib.houd.kata.domain.manufacture.DrinkMaker;
-import fr.chakib.houd.kata.domain.manufacture.DrinkProtocoleException;
-import fr.chakib.houd.kata.domain.manufacture.Protocole;
+import fr.chakib.houd.kata.manufacture.core.domain.DrinkMaker;
+import fr.chakib.houd.kata.manufacture.core.domain.DrinkProtocoleException;
+import fr.chakib.houd.kata.manufacture.core.domain.Protocole;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class DrinkMakerTest {
         class WithoutSugar {
             @Test
             void thenSendInstructionsThatContainsATeaWithoutStick() {
-                drinkMaker.order(new Protocole("T::"));
+                drinkMaker.order(new Protocole("T:0:0.4"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -29,7 +29,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsACoffeeWithoutStick() {
-                drinkMaker.order(new Protocole("C::"));
+                drinkMaker.order(new Protocole("C:0:0.6"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -38,7 +38,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsAChocolateWithoutStick() {
-                drinkMaker.order(new Protocole("H::"));
+                drinkMaker.order(new Protocole("H:0:0.5"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -51,7 +51,7 @@ class DrinkMakerTest {
         class WithSugar {
             @Test
             void thenSendInstructionsThatContainsATeaWithAStick() {
-                drinkMaker.order(new Protocole("T:1:0"));
+                drinkMaker.order(new Protocole("T:1:0.4"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -60,7 +60,7 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsACoffeeWithAStick() {
-                drinkMaker.order(new Protocole("C:2:0"));
+                drinkMaker.order(new Protocole("C:2:0.6"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
@@ -69,11 +69,42 @@ class DrinkMakerTest {
 
             @Test
             void thenSendInstructionsThatContainsAChocolateWithAStick() {
-                drinkMaker.order(new Protocole("H:1:0"));
+                drinkMaker.order(new Protocole("H:1:0.5"));
 
                 var instructionsSent = drinkMaker.sendInstruction();
 
                 assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with 1 sugar and a stick");
+            }
+        }
+
+        @Nested
+        class WithExactAmount {
+            @Test
+            void forMakeATeaWithAnySugarNumber() {
+                drinkMaker.order(new Protocole("T:1:0.4"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 tea with 1 sugar and a stick");
+            }
+
+            @Test
+            void forMakeACoffeeWithAnySugarNumber() {
+                drinkMaker.order(new Protocole("C:0:0.6"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with no sugar and therefore no stick");
+            }
+
+
+            @Test
+            void forMakeAChocolateWithAnySugarNumber() {
+                drinkMaker.order(new Protocole("H:4:0.5"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with 4 sugar and a stick");
             }
         }
     }
