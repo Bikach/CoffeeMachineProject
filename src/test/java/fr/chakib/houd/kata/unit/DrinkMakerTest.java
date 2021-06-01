@@ -11,7 +11,7 @@ class DrinkMakerTest {
 
     @Test
     void shouldBeAbleToSendInstructionsForMakingATeaWithoutSugar() {
-        drinkMaker.analyze("T::");
+        drinkMaker.order("T::");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
@@ -20,7 +20,7 @@ class DrinkMakerTest {
 
     @Test
     void shouldBeAbleToSendInstructionsForMakingACoffeeWithoutSugar() {
-        drinkMaker.analyze("C::");
+        drinkMaker.order("C::");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
@@ -29,7 +29,7 @@ class DrinkMakerTest {
 
     @Test
     void shouldBeAbleToSendInstructionsForMakingAChocolateWithoutSugar() {
-        drinkMaker.analyze("H::");
+        drinkMaker.order("H::");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
@@ -38,7 +38,7 @@ class DrinkMakerTest {
 
     @Test
     void shouldBeAbleToSendInstructionsForMakingATeaWitAtSugar() {
-        drinkMaker.analyze("T:1:0");
+        drinkMaker.order("T:1:0");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
@@ -47,20 +47,28 @@ class DrinkMakerTest {
 
     @Test
     void shouldBeAbleToSendInstructionsForMakingACoffeeWitAtSugar() {
-        drinkMaker.analyze("C:1:0");
+        drinkMaker.order("C:1:0");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
         assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with 1 sugar and a stick");
     }
 
-
     @Test
     void shouldBeAbleToSendInstructionsForMakingAChocolateWitAtSugar() {
-        drinkMaker.analyze("H:1:0");
+        drinkMaker.order("H:1:0");
 
         var instructionsSent = drinkMaker.sendInstruction();
 
         assertThat(instructionsSent).isEqualTo("Drink maker makes 1 chocolate with 1 sugar and a stick");
+    }
+    @Test
+    void shouldBeAbleToSendInstructionsToInformTheCustomerThatTheMachineTransmitsAnyMessageReceivedOnTheInterfaceOfTheCoffeeMachine() {
+        drinkMaker.order("M:message-content");
+
+        var instructionsSent = drinkMaker.sendInstruction();
+
+        assertThat(instructionsSent)
+                .isEqualTo("Drink maker forwards any message received onto the coffee machine interface for the customer to see");
     }
 }
