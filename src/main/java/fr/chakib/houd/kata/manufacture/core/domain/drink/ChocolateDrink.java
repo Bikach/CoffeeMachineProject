@@ -9,11 +9,10 @@ public class ChocolateDrink {
     private static final BigDecimal AMOUNT = new BigDecimal("0.5");
     private static final String INSTRUCTION = "chocolate";
 
-    public boolean validProtocols(String drinkProtocol, String amountProtocol){
-        var amountReceived = new BigDecimal(amountProtocol);
-        if(PROTOCOL.equals(drinkProtocol) && AMOUNT.compareTo(amountReceived) > 0)
-            throw new InsufficientAmountProtocolException(missingAmount(amountReceived), INSTRUCTION);
-        return PROTOCOL.equals(drinkProtocol) && AMOUNT.compareTo(amountReceived) == 0;
+    public boolean validateSelection(String drinkSelected, BigDecimal amount){
+        if(PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) > 0)
+            throw new InsufficientAmountProtocolException(missingAmount(amount), INSTRUCTION);
+        return PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) <= 0;
     }
 
     public String instruction() {
