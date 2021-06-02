@@ -1,13 +1,11 @@
 package fr.chakib.houd.kata.manufacture.unit;
 
 import fr.chakib.houd.kata.manufacture.core.usecase.DrinkMaker;
-import fr.chakib.houd.kata.manufacture.core.domain.DrinkProtocoleException;
 import fr.chakib.houd.kata.manufacture.core.domain.Protocol;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class DrinkMakerTest {
 
