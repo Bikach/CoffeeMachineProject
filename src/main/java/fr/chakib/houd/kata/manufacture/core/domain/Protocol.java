@@ -1,7 +1,6 @@
 package fr.chakib.houd.kata.manufacture.core.domain;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.String.valueOf;
 
 public class Protocol {
 
@@ -11,11 +10,11 @@ public class Protocol {
     private static final int DRINK_INDEX = 0;
     private static final int SUGAR_INDEX = 1;
     private static final int AMOUNT_INDEX = 2;
-    private static final int NO_SUGAR = 0;
 
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
     private final ChocolateDrink chocolate = new ChocolateDrink();
+    private final Sugar sugar = new Sugar();
 
     private final String order;
 
@@ -46,14 +45,12 @@ public class Protocol {
         return extractInstructions()[AMOUNT_INDEX];
     }
 
-    private String sugarInstruction() {
+    private String extractSugar() {
         return extractInstructions()[SUGAR_INDEX];
     }
 
     public String sugar(){
-        if(sugarNumber() > 0)
-            return valueOf(sugarNumber());
-        return "no";
+        return sugar.instruction(extractSugar());
     }
 
     public String stick(){
@@ -66,11 +63,6 @@ public class Protocol {
         return drinkProtocole().equals(INFORMATION_PROTOCOLE);
     }
 
-    private int sugarNumber(){
-        if(hasAtLeastOneSugar())
-            return parseInt(sugarInstruction());
-        return NO_SUGAR;
-    }
 
     private boolean hasAtLeastOneSugar() {
         return parseInt(extractInstructions()[SUGAR_INDEX]) > 0;
