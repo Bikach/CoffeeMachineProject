@@ -103,12 +103,39 @@ class DrinkMakerTest {
             }
         }
 
+
+        @Nested
+        class TooMuchMoney {
+            @Test
+            void forMakeATeaWithAnySugarNumber() {
+                assertsThatInstructionsSentAreCorrect(
+                        new Order("T:1:0", new BigDecimal("1.0")),
+                        "Drink maker makes 1 tea with 1 sugar and a stick"
+                );
+            }
+
+            @Test
+            void forMakeACoffeeWithAnySugarNumber() {
+                assertsThatInstructionsSentAreCorrect(
+                        new Order("C::", new BigDecimal("0.9")),
+                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
+                );
+            }
+
+            @Test
+            void forMakeAChocolateWithAnySugarNumber() {
+                assertsThatInstructionsSentAreCorrect(
+                        new Order("H:4:0", new BigDecimal("7.5")),
+                        "Drink maker makes 1 chocolate with 4 sugar and a stick"
+                );
+            }
+        }
+
     }
 
 
     @Nested
     class ShouldNotMakeADrink {
-
         @Nested
         class WithAnInsufficientAmount {
             @Test
@@ -118,6 +145,7 @@ class DrinkMakerTest {
                         "There are 0.20 cents missing to make a tea."
                 );
             }
+
             @Test
             void thenSendInstructionAboutTheMissingAmountForaCoffee(){
                 assertsThatInstructionsSentAreCorrect(
@@ -133,7 +161,6 @@ class DrinkMakerTest {
                         "There are 0.20 cents missing to make a chocolate."
                 );
             }
-
         }
     }
     @Nested

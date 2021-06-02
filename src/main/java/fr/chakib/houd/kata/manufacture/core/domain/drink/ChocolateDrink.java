@@ -12,7 +12,7 @@ public class ChocolateDrink {
     public boolean validateSelection(String drinkSelected, BigDecimal amount){
         if(PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) > 0)
             throw new InsufficientAmountProtocolException(missingAmount(amount), INSTRUCTION);
-        return PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) == 0;
+        return PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) <= 0;
     }
 
     public String instruction() {
