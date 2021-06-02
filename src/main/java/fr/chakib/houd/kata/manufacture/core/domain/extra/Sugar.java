@@ -1,4 +1,4 @@
-package fr.chakib.houd.kata.manufacture.core.domain;
+package fr.chakib.houd.kata.manufacture.core.domain.extra;
 
 import static java.lang.String.valueOf;
 

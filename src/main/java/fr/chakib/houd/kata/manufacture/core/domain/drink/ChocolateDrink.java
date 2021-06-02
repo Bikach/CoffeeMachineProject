@@ -1,15 +1,13 @@
-package fr.chakib.houd.kata.manufacture.core.domain;
-
+package fr.chakib.houd.kata.manufacture.core.domain.drink;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+public class ChocolateDrink {
 
-public class TeaDrink {
-
-    private static final String PROTOCOL = "T";
-    private static final BigDecimal AMOUNT = new BigDecimal("0.4");
-    private static final String INSTRUCTION = "tea";
+    private static final String PROTOCOL = "H";
+    private static final BigDecimal AMOUNT = new BigDecimal("0.5");
+    private static final String INSTRUCTION = "chocolate";
 
     public boolean validProtocols(String drinkProtocol, String amountProtocol){
         var amountReceived = new BigDecimal(amountProtocol);
@@ -22,7 +20,7 @@ public class TeaDrink {
         return INSTRUCTION;
     }
 
-    private BigDecimal missingAmount(BigDecimal amountReceived){
-        return AMOUNT.subtract(amountReceived).setScale(2, RoundingMode.HALF_UP);
+    private BigDecimal missingAmount(BigDecimal amountProtocol){
+        return AMOUNT.subtract(amountProtocol).setScale(2, RoundingMode.HALF_UP);
     }
 }

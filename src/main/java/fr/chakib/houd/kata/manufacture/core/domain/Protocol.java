@@ -1,5 +1,10 @@
 package fr.chakib.houd.kata.manufacture.core.domain;
 
+import fr.chakib.houd.kata.manufacture.core.domain.drink.ChocolateDrink;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.CoffeeDrink;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.TeaDrink;
+import fr.chakib.houd.kata.manufacture.core.domain.extra.Sugar;
+
 public class Protocol {
 
     private static final String DELIMITER = ":";

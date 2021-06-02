@@ -1,6 +1,6 @@
 package fr.chakib.houd.kata.manufacture.core.usecase;
 
-import fr.chakib.houd.kata.manufacture.core.domain.InsufficientAmountProtocolException;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.InsufficientAmountProtocolException;
 import fr.chakib.houd.kata.manufacture.core.domain.Protocol;
 
 import static java.lang.String.format;

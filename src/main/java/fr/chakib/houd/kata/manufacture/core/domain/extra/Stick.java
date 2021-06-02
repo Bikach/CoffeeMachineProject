@@ -1,4 +1,4 @@
-package fr.chakib.houd.kata.manufacture.core.domain;
+package fr.chakib.houd.kata.manufacture.core.domain.extra;
 
 public class Stick {
 
