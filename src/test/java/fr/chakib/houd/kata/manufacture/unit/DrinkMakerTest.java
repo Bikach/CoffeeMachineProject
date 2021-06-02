@@ -13,7 +13,6 @@ class DrinkMakerTest {
 
     DrinkMaker drinkMaker = new DrinkMaker();
 
-
     @Nested
     class ShouldMakeADrink {
         @Nested
@@ -97,7 +96,6 @@ class DrinkMakerTest {
                 assertThat(instructionsSent).isEqualTo("Drink maker makes 1 coffee with no sugar and therefore no stick");
             }
 
-
             @Test
             void forMakeAChocolateWithAnySugarNumber() {
                 drinkMaker.order(new Protocol("H:4:0.5"));
@@ -113,14 +111,32 @@ class DrinkMakerTest {
     @Nested
     class ShouldNotMakeADrink {
         @Nested
-        class WithABadDrinkInstruction {
+        class WithAnInsufficientAmount {
             @Test
-            void thenSendInstructionThatTheDrinkProtocolIsNotSupported() {
-                assertThatThrownBy(() -> {
-                    drinkMaker.order(new Protocol("Z:0:0"));
-                    drinkMaker.sendInstruction();
-                }).isInstanceOf(DrinkProtocoleException.class)
-                    .hasMessageContaining("the drink protocol is not supported by the machine.");
+            void thenSendInstructionAboutTheMissingAmountForaTea(){
+                drinkMaker.order(new Protocol("T:2:0.2"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("There are 0.20 cents missing to make a tea.");
+            }
+
+            @Test
+            void thenSendInstructionAboutTheMissingAmountForaCoffee(){
+                drinkMaker.order(new Protocol("C:0:0.1"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("There are 0.50 cents missing to make a coffee.");
+            }
+
+            @Test
+            void thenSendInstructionAboutTheMissingAmountForaChocolate(){
+                drinkMaker.order(new Protocol("H:1:0.3"));
+
+                var instructionsSent = drinkMaker.sendInstruction();
+
+                assertThat(instructionsSent).isEqualTo("There are 0.20 cents missing to make a chocolate.");
             }
         }
     }
@@ -137,7 +153,4 @@ class DrinkMakerTest {
                     .isEqualTo("Drink maker forwards any message received onto the coffee machine interface for the customer to see");
         }
     }
-
-
-
 }

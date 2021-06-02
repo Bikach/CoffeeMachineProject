@@ -28,8 +28,9 @@ public class Protocol {
             return tea.instruction();
         if(coffee.validProtocols(drinkProtocole(), amountProtocol()))
             return coffee.instruction();
-        if(chocolate.validProtocols(drinkProtocole(), amountProtocol()))
+        if(chocolate.validProtocols(drinkProtocole(), amountProtocol())) {
             return chocolate.instruction();
+        }
         throw new DrinkProtocoleException();
     }
 

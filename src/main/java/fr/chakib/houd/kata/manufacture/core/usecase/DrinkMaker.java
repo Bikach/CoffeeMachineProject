@@ -1,5 +1,6 @@
 package fr.chakib.houd.kata.manufacture.core.usecase;
 
+import fr.chakib.houd.kata.manufacture.core.domain.InsufficientAmountProtocolException;
 import fr.chakib.houd.kata.manufacture.core.domain.Protocol;
 
 import static java.lang.String.format;
@@ -17,6 +18,14 @@ public class DrinkMaker {
     public String sendInstruction() {
         if(protocol.containInformationProtocole())
             return "Drink maker forwards any message received onto the coffee machine interface for the customer to see";
-       return format(CUSTOMER_MESSAGE, protocol.drink(), protocol.sugar(), protocol.stick());
+        return formatInstructions();
+    }
+
+    private String formatInstructions() {
+        try {
+            return format(CUSTOMER_MESSAGE, protocol.drink(), protocol.sugar(), protocol.stick());
+        }catch (InsufficientAmountProtocolException e){
+            return e.getMessage();
+        }
     }
 }
