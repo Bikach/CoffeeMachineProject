@@ -7,53 +7,33 @@ import fr.chakib.houd.kata.manufacture.core.domain.extra.Sugar;
 
 public class Protocol {
 
-    private static final String DELIMITER = ":";
     private static final String INFORMATION_PROTOCOLE = "M";
-
-    private static final int DRINK_INDEX = 0;
-    private static final int SUGAR_INDEX = 1;
-    private static final int AMOUNT_INDEX = 2;
 
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
     private final ChocolateDrink chocolate = new ChocolateDrink();
     private final Sugar sugar = new Sugar();
 
-    private final String order;
+    private final Order order;
 
-    public Protocol(String order) {
+    public Protocol(Order order) {
         this.order = order;
     }
 
     public String drink() {
-        if(tea.validProtocols(drinkProtocole(), amountProtocol()))
+        if(tea.validateSelection(order.drink(), order.amount()))
             return tea.instruction();
-        if(coffee.validProtocols(drinkProtocole(), amountProtocol()))
+        if(coffee.validateSelection(order.drink(), order.amount()))
             return coffee.instruction();
-        if(chocolate.validProtocols(drinkProtocole(), amountProtocol())) {
+        if(chocolate.validateSelection(order.drink(), order.amount())) {
             return chocolate.instruction();
         }
         throw new DrinkProtocoleException();
     }
 
-    private String[] extractInstructions() {
-        return order.split(DELIMITER);
-    }
-
-    private String drinkProtocole() {
-        return extractInstructions()[DRINK_INDEX];
-    }
-
-    private String amountProtocol() {
-        return extractInstructions()[AMOUNT_INDEX];
-    }
-
-    private String extractSugar() {
-        return extractInstructions()[SUGAR_INDEX];
-    }
 
     public String sugar(){
-        return sugar.instruction(extractSugar());
+        return sugar.instruction(order.extractSugar());
     }
 
     public String stick(){
@@ -61,6 +41,6 @@ public class Protocol {
     }
 
     public boolean containInformationProtocole() {
-        return drinkProtocole().equals(INFORMATION_PROTOCOLE);
+        return order.drink().equals(INFORMATION_PROTOCOLE);
     }
 }

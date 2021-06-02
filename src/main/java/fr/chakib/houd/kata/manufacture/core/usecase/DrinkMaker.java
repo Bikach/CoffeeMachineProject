@@ -11,7 +11,7 @@ public class DrinkMaker {
 
     private Protocol protocol;
 
-    public void order(Protocol protocol) {
+    public void protocolSelected(Protocol protocol) {
         this.protocol = protocol;
     }
 
