@@ -1,7 +1,5 @@
 package fr.chakib.houd.kata.manufacture.core.domain;
 
-import static java.lang.Integer.parseInt;
-
 public class Protocol {
 
     private static final String DELIMITER = ":";
@@ -54,17 +52,10 @@ public class Protocol {
     }
 
     public String stick(){
-        if(hasAtLeastOneSugar())
-            return "a";
-        return "therefore no";
+        return sugar.stickInstruction();
     }
 
     public boolean containInformationProtocole() {
         return drinkProtocole().equals(INFORMATION_PROTOCOLE);
-    }
-
-
-    private boolean hasAtLeastOneSugar() {
-        return parseInt(extractInstructions()[SUGAR_INDEX]) > 0;
     }
 }
