@@ -30,7 +30,6 @@ public class OrderTranslator {
     public String translate(){
         if(containInformationProtocole())
             return DEFAULT_MESSAGE;
-
         return formatMessageOrder();
     }
 
@@ -43,14 +42,14 @@ public class OrderTranslator {
     }
 
     private String drink() {
+        var instruction = "";
         if(tea.validateSelection(order.extractDrink(), order.amount()))
-            return tea.instruction();
-        if(coffee.validateSelection(order.extractDrink(), order.amount()))
-            return coffee.instruction();
-        if(chocolate.validateSelection(order.extractDrink(), order.amount())) {
-            return chocolate.instruction();
-        }
-        throw new DrinkProtocoleException();
+            instruction = tea.instruction();
+        else if(coffee.validateSelection(order.extractDrink(), order.amount()))
+            instruction = coffee.instruction();
+        else if(chocolate.validateSelection(order.extractDrink(), order.amount()))
+            instruction = chocolate.instruction();
+        return instruction;
     }
 
 
@@ -63,6 +62,6 @@ public class OrderTranslator {
     }
 
     public boolean containInformationProtocole() {
-        return order.extractDrink().equals(INFORMATION_PROTOCOLE);
+        return INFORMATION_PROTOCOLE.equals(order.extractDrink());
     }
 }

@@ -15,7 +15,7 @@ public class SendTranslatedOrders {
 
     public String send() {
         var orderTranslated = orderTranslator.translate();
-        drinkMaker.sendOrderTranslated(orderTranslated);
+        drinkMaker.sendOrder(orderTranslated);
         return orderTranslated;
     }
 }
