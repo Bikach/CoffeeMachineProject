@@ -2,13 +2,18 @@ package fr.chakib.houd.kata.manufacture.core.domain;
 
 import fr.chakib.houd.kata.manufacture.core.domain.drink.ChocolateDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.CoffeeDrink;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.InsufficientAmountProtocolException;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.TeaDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Stick;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Sugar;
 
+import static java.lang.String.format;
+
 public class OrderTranslator {
 
     private static final String INFORMATION_PROTOCOLE = "M";
+    private static final String CUSTOMER_MESSAGE = "Drink maker makes 1 %s with %s sugar and %s stick";
+    private static final String DEFAULT_MESSAGE = "Drink maker forwards any message received onto the coffee machine interface for the customer to see";
 
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
@@ -22,7 +27,22 @@ public class OrderTranslator {
         this.order = order;
     }
 
-    public String drink() {
+    public String translate(){
+        if(containInformationProtocole())
+            return DEFAULT_MESSAGE;
+
+        return formatMessageOrder();
+    }
+
+    private String formatMessageOrder() {
+        try {
+            return format(CUSTOMER_MESSAGE, drink(), sugar(), stick());
+        }catch (InsufficientAmountProtocolException e){
+            return e.getMessage();
+        }
+    }
+
+    private String drink() {
         if(tea.validateSelection(order.extractDrink(), order.amount()))
             return tea.instruction();
         if(coffee.validateSelection(order.extractDrink(), order.amount()))
@@ -34,11 +54,11 @@ public class OrderTranslator {
     }
 
 
-    public String sugar(){
+    private String sugar(){
         return sugar.instruction(order.extractSugar());
     }
 
-    public String stick(){
+    private String stick(){
         return stick.instruction(order.extractStick());
     }
 

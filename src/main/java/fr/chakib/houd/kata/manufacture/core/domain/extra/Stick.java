@@ -10,5 +10,4 @@ public class Stick {
             return STICK_ABSENT_INSTRUCTION;
         return STICK_PRESENT_INSTRUCTION;
     }
-
 }
