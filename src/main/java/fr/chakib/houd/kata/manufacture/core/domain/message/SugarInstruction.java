@@ -1,21 +1,30 @@
-package fr.chakib.houd.kata.manufacture.core.domain.extra;
+package fr.chakib.houd.kata.manufacture.core.domain.message;
+
+import fr.chakib.houd.kata.manufacture.core.domain.Order;
 
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
-public class Sugar {
+public class SugarInstruction implements Instruction {
 
     private static final String NO_SUGAR_INSTRUCTION = " with no sugar)";
 
-    public String instruction(String numberSugarReceived){
-        if(hasAtLeastOneSugar(numberSugarReceived))
-            return TranslateSugarNumber.translate(numberSugarReceived);
-        return NO_SUGAR_INSTRUCTION;
+    private final InstructionDecorator instructionDecorator;
+
+    public SugarInstruction(Instruction instruction) {
+        this.instructionDecorator = new InstructionDecorator(instruction);
     }
 
-    private boolean hasAtLeastOneSugar(String number) {
-        return !number.isEmpty();
+    @Override
+    public String concat(Order order, String message) {
+        if(hasNotSugar(order.extractSugar()))
+            return message + NO_SUGAR_INSTRUCTION;
+        return instructionDecorator.concat(order, message + TranslateSugarNumber.translate(order.extractSugar()));
+    }
+
+    private boolean hasNotSugar(String number) {
+        return number.isEmpty();
     }
 
     enum TranslateSugarNumber {
@@ -32,7 +41,7 @@ public class Sugar {
         }
 
         public static String translate(String sugarNumber) {
-            return Stream.of(TranslateSugarNumber.values())
+            return Stream.of(SugarInstruction.TranslateSugarNumber.values())
                     .filter(translateSugarNumber -> translateSugarNumber.number.equals(sugarNumber))
                     .map(translateSugarNumber -> translateSugarNumber.instruction)
                     .collect(joining());
