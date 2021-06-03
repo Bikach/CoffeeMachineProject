@@ -5,13 +5,11 @@ import java.math.BigDecimal;
 public class Order {
 
     private static final String DELIMITER = ":";
+    private static final String INSTRUCTION_EMPTY = "";
 
     private static final int DRINK_INDEX = 0;
     private static final int SUGAR_INDEX = 1;
     private static final int STICK_INDEX = 2;
-
-    private static final String ZERO_SUGAR = "0";
-    private static final String STICK_EMPTY = "";
 
     private final String protocol;
     private final BigDecimal amount;
@@ -30,15 +28,17 @@ public class Order {
     }
 
     public String extractSugar() {
-        if(hasNotSugarInstruction())
-            return ZERO_SUGAR;
-        return extractInstructions()[SUGAR_INDEX];
+        return extractExtraInstruction(SUGAR_INDEX);
     }
 
     public String extractStick(){
-        if(hasNotSugarInstruction())
-            return STICK_EMPTY;
-        return extractInstructions()[STICK_INDEX];
+        return extractExtraInstruction(STICK_INDEX);
+    }
+
+    private String extractExtraInstruction(int stickIndex) {
+        if (hasNotSugarInstruction())
+            return INSTRUCTION_EMPTY;
+        return extractInstructions()[stickIndex];
     }
 
     private boolean hasNotSugarInstruction() {

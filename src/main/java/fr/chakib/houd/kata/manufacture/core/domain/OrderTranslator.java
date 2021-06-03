@@ -52,7 +52,6 @@ public class OrderTranslator {
         return instruction;
     }
 
-
     private String sugar(){
         return sugar.instruction(order.extractSugar());
     }
