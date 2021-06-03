@@ -7,17 +7,17 @@ import fr.chakib.houd.kata.manufacture.core.domain.drink.TeaDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Stick;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Sugar;
 
-import static java.lang.String.format;
-
 public class OrderTranslator {
 
     private static final String INFORMATION_PROTOCOLE = "M";
-    private static final String CUSTOMER_MESSAGE = "Drink maker makes 1 %s with %s sugar and %s stick";
     private static final String DEFAULT_MESSAGE = "Drink maker forwards any message received onto the coffee machine interface for the customer to see";
+
+    private final StringBuilder customerMessage = new StringBuilder("(Drink maker will make");
 
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
     private final ChocolateDrink chocolate = new ChocolateDrink();
+
     private final Sugar sugar = new Sugar();
     private final Stick stick = new Stick();
 
@@ -35,7 +35,11 @@ public class OrderTranslator {
 
     private String formatMessageOrder() {
         try {
-            return format(CUSTOMER_MESSAGE, drink(), sugar(), stick());
+            return customerMessage
+                    .append(drink())
+                    .append(sugar())
+                    .append(stick())
+                    .toString();
         }catch (InsufficientAmountProtocolException e){
             return e.getMessage();
         }

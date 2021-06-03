@@ -2,8 +2,8 @@ package fr.chakib.houd.kata.manufacture.core.domain.extra;
 
 public class Stick {
 
-    private static final String STICK_ABSENT_INSTRUCTION = "therefore no";
-    private static final String STICK_PRESENT_INSTRUCTION = "a";
+    private static final String STICK_ABSENT_INSTRUCTION = "";
+    private static final String STICK_PRESENT_INSTRUCTION = " and a stick)";
 
     public String instruction(String stick){
         if(stick.isEmpty())

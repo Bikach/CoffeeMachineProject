@@ -6,6 +6,6 @@ import static java.lang.String.format;
 
 public class InsufficientAmountProtocolException extends IllegalArgumentException {
     public InsufficientAmountProtocolException(BigDecimal missingAmount, String drink) {
-        super(format("There are %s cents missing to make a %s.", missingAmount.toString(), drink));
+        super(format("(There are %s cents missing to make one %s)", missingAmount.toString(), drink));
     }
 }

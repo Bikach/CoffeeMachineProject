@@ -1,27 +1,21 @@
 package fr.chakib.houd.kata.manufacture.core.domain.drink;
 
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
+public class TeaDrink extends Drink {
 
-public class TeaDrink {
-
-    private static final String PROTOCOL = "T";
-    private static final BigDecimal AMOUNT = new BigDecimal("0.4");
-    private static final String INSTRUCTION = "tea";
-
-    public boolean validateSelection(String drinkSelected, BigDecimal amount){
-        if(PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) > 0)
-            throw new InsufficientAmountProtocolException(missingAmount(amount), INSTRUCTION);
-        return PROTOCOL.equals(drinkSelected) && AMOUNT.compareTo(amount) <= 0;
+    public TeaDrink() {
+        super("T", new BigDecimal("0.4"), "tea");
     }
 
+    @Override
+    public boolean validateSelection(String drinkSelected, BigDecimal amountReceived){
+        verifiesThatAmountIsEnoughToCoverTheCosts(drinkSelected, amountReceived);
+        return protocol.equals(drinkSelected) && receivedAnAmountAtLeastEqualToTheCost(amountReceived);
+    }
+
+    @Override
     public String instruction() {
-        return INSTRUCTION;
-    }
-
-    private BigDecimal missingAmount(BigDecimal amountReceived){
-        return AMOUNT.subtract(amountReceived).setScale(2, RoundingMode.HALF_UP);
+        return DEFAULT_QUANTITY + instruction;
     }
 }

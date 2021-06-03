@@ -31,7 +31,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsATeaWithoutStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("T::", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with no sugar and therefore no stick"
+                        "(Drink maker will make one tea with no sugar)"
                 );
             }
 
@@ -39,7 +39,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsACoffeeWithoutStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("C::", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
+                        "(Drink maker will make one coffee with no sugar)"
                 );
             }
 
@@ -47,7 +47,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsAChocolateWithoutStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("H::", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with no sugar and therefore no stick"
+                        "(Drink maker will make one chocolate with no sugar)"
                 );
             }
 
@@ -59,7 +59,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsATeaWithAStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("T:1:0", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
+                        "(Drink maker will make one tea with one sugar and a stick)"
                 );
             }
 
@@ -67,7 +67,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsACoffeeWithAStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("C:2:0", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with 2 sugar and a stick"
+                        "(Drink maker will make one coffee with two sugar and a stick)"
                 );
             }
 
@@ -75,7 +75,7 @@ class SendTranslatedOrdersTest {
             void thenSendOrderThatContainsAChocolateWithAStick() {
                 assertsThatOrderSentAreCorrect(
                         new Order("H:1:0", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with 1 sugar and a stick"
+                        "(Drink maker will make one chocolate with one sugar and a stick)"
                 );
             }
         }
@@ -86,7 +86,7 @@ class SendTranslatedOrdersTest {
             void forMakeATeaWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
                         new Order("T:1:0", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
+                        "(Drink maker will make one tea with one sugar and a stick)"
                 );
             }
 
@@ -94,15 +94,15 @@ class SendTranslatedOrdersTest {
             void forMakeACoffeeWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
                         new Order("C::", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
+                        "(Drink maker will make one coffee with no sugar)"
                 );
             }
 
             @Test
             void forMakeAChocolateWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
-                        new Order("H:4:0", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with 4 sugar and a stick"
+                        new Order("H:2:0", new BigDecimal("0.5")),
+                        "(Drink maker will make one chocolate with two sugar and a stick)"
                 );
             }
         }
@@ -114,7 +114,7 @@ class SendTranslatedOrdersTest {
             void forMakeATeaWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
                         new Order("T:1:0", new BigDecimal("1.0")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
+                        "(Drink maker will make one tea with one sugar and a stick)"
                 );
             }
 
@@ -122,15 +122,15 @@ class SendTranslatedOrdersTest {
             void forMakeACoffeeWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
                         new Order("C::", new BigDecimal("0.9")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
+                        "(Drink maker will make one coffee with no sugar)"
                 );
             }
 
             @Test
             void forMakeAChocolateWithAnySugarNumber() {
                 assertsThatOrderSentAreCorrect(
-                        new Order("H:4:0", new BigDecimal("7.5")),
-                        "Drink maker makes 1 chocolate with 4 sugar and a stick"
+                        new Order("H:2:0", new BigDecimal("7.5")),
+                        "(Drink maker will make one chocolate with two sugar and a stick)"
                 );
             }
         }
@@ -146,7 +146,7 @@ class SendTranslatedOrdersTest {
             void thenSendInstructionAboutTheMissingAmountForaTea(){
                 assertsThatOrderSentAreCorrect(
                         new Order("T:2:0", new BigDecimal("0.2")),
-                        "There are 0.20 cents missing to make a tea."
+                        "(There are 0.20 cents missing to make one tea)"
                 );
             }
 
@@ -154,7 +154,7 @@ class SendTranslatedOrdersTest {
             void thenSendInstructionAboutTheMissingAmountForaCoffee(){
                 assertsThatOrderSentAreCorrect(
                         new Order("C::", new BigDecimal("0.1")),
-                        "There are 0.50 cents missing to make a coffee."
+                        "(There are 0.50 cents missing to make one coffee)"
                 );
             }
 
@@ -162,7 +162,7 @@ class SendTranslatedOrdersTest {
             void thenSendInstructionAboutTheMissingAmountForaChocolate(){
                 assertsThatOrderSentAreCorrect(
                         new Order("H:1:0", new BigDecimal("0.3")),
-                        "There are 0.20 cents missing to make a chocolate."
+                        "(There are 0.20 cents missing to make one chocolate)"
                 );
             }
         }
