@@ -5,13 +5,10 @@ public class Stick {
     private static final String STICK_ABSENT_INSTRUCTION = "therefore no";
     private static final String STICK_PRESENT_INSTRUCTION = "a";
 
-    public String instruction(int numberSugar){
-        if(hasAtLeastOneSugar(numberSugar))
-            return STICK_PRESENT_INSTRUCTION;
-        return STICK_ABSENT_INSTRUCTION;
+    public String instruction(String stick){
+        if(stick.isEmpty())
+            return STICK_ABSENT_INSTRUCTION;
+        return STICK_PRESENT_INSTRUCTION;
     }
 
-    private boolean hasAtLeastOneSugar(int number) {
-        return number > 0;
-    }
 }

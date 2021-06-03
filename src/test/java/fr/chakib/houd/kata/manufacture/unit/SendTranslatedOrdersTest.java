@@ -1,7 +1,7 @@
 package fr.chakib.houd.kata.manufacture.unit;
 
 import fr.chakib.houd.kata.manufacture.core.domain.Order;
-import fr.chakib.houd.kata.manufacture.core.domain.Protocol;
+import fr.chakib.houd.kata.manufacture.core.domain.OrderTranslator;
 import fr.chakib.houd.kata.manufacture.core.usecase.SendTranslatedOrders;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,12 +12,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class SendTranslatedOrdersTest {
 
-    private final InMemoryDrinkMaker drinkMaker = new InMemoryDrinkMaker();
-    private final SendTranslatedOrders sendTranslatedOrders = new SendTranslatedOrders(drinkMaker);
-
-    private void assertsThatOrderSentAreCorrect(Order order, String instruction) {
-        sendTranslatedOrders.protocolSelected(new Protocol(order));
-        assertThat(sendTranslatedOrders.sendOrderTranslated()).isEqualTo(instruction);
+    private void assertsThatOrderSentAreCorrect(Order order, String orderTranslated) {
+        // Arrange
+        var drinkMaker = new InMemoryDrinkMaker();
+        var sendTranslatedOrders = new SendTranslatedOrders(new OrderTranslator(order), drinkMaker);
+        // Act
+        var orderSent = sendTranslatedOrders.send();
+        // Assert
+        assertThat(orderSent).isEqualTo(orderTranslated);
         assertThat(drinkMaker.verifyOrderSent()).isTrue();
     }
 
