@@ -7,8 +7,8 @@ public class InMemoryDrinkMaker implements DrinkMaker {
     private String order = "";
 
     @Override
-    public void sendOrder(String orderTranslated) {
-        this.order = orderTranslated;
+    public void sendOrder(String order) {
+        this.order = order;
     }
 
     public boolean verifyOrderSent(){
