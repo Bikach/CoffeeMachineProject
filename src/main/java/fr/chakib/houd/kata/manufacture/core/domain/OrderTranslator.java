@@ -3,6 +3,7 @@ package fr.chakib.houd.kata.manufacture.core.domain;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.ChocolateDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.CoffeeDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.InsufficientAmountProtocolException;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.OrangeJuiceDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.drink.TeaDrink;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Stick;
 import fr.chakib.houd.kata.manufacture.core.domain.extra.Sugar;
@@ -17,6 +18,7 @@ public class OrderTranslator {
     private final TeaDrink tea = new TeaDrink();
     private final CoffeeDrink coffee = new CoffeeDrink();
     private final ChocolateDrink chocolate = new ChocolateDrink();
+    private final OrangeJuiceDrink orangeJuice = new OrangeJuiceDrink();
 
     private final Sugar sugar = new Sugar();
     private final Stick stick = new Stick();
@@ -35,6 +37,9 @@ public class OrderTranslator {
 
     private String formatMessageOrder() {
         try {
+            if (drink().contains("orange juice"))
+                return customerMessage.append(drink()).toString();
+
             return customerMessage
                     .append(drink())
                     .append(sugar())
@@ -53,6 +58,8 @@ public class OrderTranslator {
             instruction = coffee.instruction();
         else if(chocolate.validateSelection(order.extractDrink(), order.amount()))
             instruction = chocolate.instruction();
+        else if(orangeJuice.validateSelection(order.extractDrink(), order.amount()))
+            instruction = orangeJuice.instruction();
         return instruction;
     }
 

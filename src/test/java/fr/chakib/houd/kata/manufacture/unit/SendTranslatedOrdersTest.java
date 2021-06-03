@@ -51,6 +51,13 @@ class SendTranslatedOrdersTest {
                 );
             }
 
+            @Test
+            void thenSendOrderThatContainsAOrangeJuice() {
+                assertsThatOrderSentAreCorrect(
+                        new Order("O::", new BigDecimal("0.6")),
+                        "(Drink maker will make one orange juice)"
+                );
+            }
         }
 
         @Nested
@@ -105,6 +112,14 @@ class SendTranslatedOrdersTest {
                         "(Drink maker will make one chocolate with two sugar and a stick)"
                 );
             }
+
+            @Test
+            void forMakeAOrangeJuice() {
+                assertsThatOrderSentAreCorrect(
+                        new Order("O::", new BigDecimal("0.6")),
+                        "(Drink maker will make one orange juice)"
+                );
+            }
         }
 
 
@@ -131,6 +146,14 @@ class SendTranslatedOrdersTest {
                 assertsThatOrderSentAreCorrect(
                         new Order("H:2:0", new BigDecimal("7.5")),
                         "(Drink maker will make one chocolate with two sugar and a stick)"
+                );
+            }
+
+            @Test
+            void forMakeAOrangeJuice() {
+                assertsThatOrderSentAreCorrect(
+                        new Order("O::", new BigDecimal("0.9")),
+                        "(Drink maker will make one orange juice)"
                 );
             }
         }
