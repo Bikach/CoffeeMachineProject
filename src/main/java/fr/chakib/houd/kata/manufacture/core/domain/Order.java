@@ -9,7 +9,6 @@ public class Order {
 
     private static final int DRINK_INDEX = 0;
     private static final int SUGAR_INDEX = 1;
-    private static final int STICK_INDEX = 2;
 
     private final String protocol;
     private final BigDecimal amount;
@@ -28,17 +27,9 @@ public class Order {
     }
 
     public String extractSugar() {
-        return extractExtraInstruction(SUGAR_INDEX);
-    }
-
-    public String extractStick(){
-        return extractExtraInstruction(STICK_INDEX);
-    }
-
-    private String extractExtraInstruction(int stickIndex) {
         if (hasNotSugarInstruction())
             return INSTRUCTION_EMPTY;
-        return extractInstructions()[stickIndex];
+        return extractInstructions()[SUGAR_INDEX];
     }
 
     private boolean hasNotSugarInstruction() {

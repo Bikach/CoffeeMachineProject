@@ -3,6 +3,7 @@ package fr.chakib.houd.kata.manufacture.unit;
 import fr.chakib.houd.kata.manufacture.core.domain.Order;
 import fr.chakib.houd.kata.manufacture.core.domain.OrderTranslator;
 import fr.chakib.houd.kata.manufacture.core.usecase.SendTranslatedOrders;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -27,143 +28,325 @@ class SendTranslatedOrdersTest {
     class ShouldMakeADrink {
         @Nested
         class WithoutSugar {
-            @Test
-            void thenSendOrderThatContainsATeaWithoutStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("T::", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with no sugar and therefore no stick"
-                );
+            @Nested
+            class WithoutExtraHot {
+                @Test
+                void thenSendOrderThatContainsATeaWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("T::", new BigDecimal("0.4")),
+                            "(Drink maker will make one tea with no sugar)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsACoffeeWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("C::", new BigDecimal("0.6")),
+                            "(Drink maker will make one coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsAChocolateWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("H::", new BigDecimal("0.5")),
+                            "(Drink maker will make one chocolate with no sugar)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsAOrangeJuice() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("O::", new BigDecimal("0.6")),
+                            "(Drink maker will make one orange juice)"
+                    );
+                }
             }
 
-            @Test
-            void thenSendOrderThatContainsACoffeeWithoutStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("C::", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
-                );
+            @Nested
+            class WithExtraHot {
+                @Test
+                void thenSendOrderThatContainsATeaWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Th::", new BigDecimal("0.4")),
+                            "(Drink maker will make an extra hot tea with no sugar)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsACoffeeWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Ch::", new BigDecimal("0.6")),
+                            "(Drink maker will make an extra hot coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsAChocolateWithoutStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Hh::", new BigDecimal("0.5")),
+                            "(Drink maker will make an extra hot chocolate with no sugar)"
+                    );
+                }
             }
 
-            @Test
-            void thenSendOrderThatContainsAChocolateWithoutStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("H::", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with no sugar and therefore no stick"
-                );
-            }
 
         }
 
         @Nested
         class WithSugar {
-            @Test
-            void thenSendOrderThatContainsATeaWithAStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("T:1:0", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
-                );
+            @Nested
+            class WithoutExtraHot {
+                @Test
+                void thenSendOrderThatContainsATeaWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("T:1:0", new BigDecimal("0.4")),
+                            "(Drink maker will make one tea with one sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsACoffeeWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("C:2:0", new BigDecimal("0.6")),
+                            "(Drink maker will make one coffee with two sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsAChocolateWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("H:1:0", new BigDecimal("0.5")),
+                            "(Drink maker will make one chocolate with one sugar and a stick)"
+                    );
+                }
             }
 
-            @Test
-            void thenSendOrderThatContainsACoffeeWithAStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("C:2:0", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with 2 sugar and a stick"
-                );
-            }
+            @Nested
+            class WithExtraHot {
+                @Test
+                void thenSendOrderThatContainsATeaWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Th:1:0", new BigDecimal("0.4")),
+                            "(Drink maker will make an extra hot tea with one sugar and a stick)"
+                    );
+                }
 
-            @Test
-            void thenSendOrderThatContainsAChocolateWithAStick() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("H:1:0", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with 1 sugar and a stick"
-                );
+                @Test
+                void thenSendOrderThatContainsACoffeeWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Ch:2:0", new BigDecimal("0.6")),
+                            "(Drink maker will make an extra hot coffee with two sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void thenSendOrderThatContainsAChocolateWithAStick() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Hh:1:0", new BigDecimal("0.5")),
+                            "(Drink maker will make an extra hot chocolate with one sugar and a stick)"
+                    );
+                }
             }
         }
 
         @Nested
         class WithExactAmount {
-            @Test
-            void forMakeATeaWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("T:1:0", new BigDecimal("0.4")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
-                );
+            @Nested
+            class WithoutExtraHot {
+                @Test
+                void forMakeATeaWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("T:1:0", new BigDecimal("0.4")),
+                            "(Drink maker will make one tea with one sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void forMakeACoffeeWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("C::", new BigDecimal("0.6")),
+                            "(Drink maker will make one coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void forMakeAChocolateWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("H:2:0", new BigDecimal("0.5")),
+                            "(Drink maker will make one chocolate with two sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void forMakeAOrangeJuice() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("O::", new BigDecimal("0.6")),
+                            "(Drink maker will make one orange juice)"
+                    );
+                }
             }
 
-            @Test
-            void forMakeACoffeeWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("C::", new BigDecimal("0.6")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
-                );
-            }
+            @Nested
+            class WithExtraHot {
+                @Test
+                void forMakeATeaWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Th:1:0", new BigDecimal("0.4")),
+                            "(Drink maker will make an extra hot tea with one sugar and a stick)"
+                    );
+                }
 
-            @Test
-            void forMakeAChocolateWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("H:4:0", new BigDecimal("0.5")),
-                        "Drink maker makes 1 chocolate with 4 sugar and a stick"
-                );
+                @Test
+                void forMakeACoffeeWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Ch::", new BigDecimal("0.6")),
+                            "(Drink maker will make an extra hot coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void forMakeAChocolateWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Hh:2:0", new BigDecimal("0.5")),
+                            "(Drink maker will make an extra hot chocolate with two sugar and a stick)"
+                    );
+                }
             }
         }
 
 
         @Nested
         class TooMuchMoney {
-            @Test
-            void forMakeATeaWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("T:1:0", new BigDecimal("1.0")),
-                        "Drink maker makes 1 tea with 1 sugar and a stick"
-                );
+            @Nested
+            class WithoutExtraHot {
+                @Test
+                void forMakeATeaWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("T:1:0", new BigDecimal("1.0")),
+                            "(Drink maker will make one tea with one sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void forMakeACoffeeWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("C::", new BigDecimal("0.9")),
+                            "(Drink maker will make one coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void forMakeAChocolateWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("H:2:0", new BigDecimal("7.5")),
+                            "(Drink maker will make one chocolate with two sugar and a stick)"
+                    );
+                }
+
+                @Test
+                void forMakeAOrangeJuice() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("O::", new BigDecimal("0.9")),
+                            "(Drink maker will make one orange juice)"
+                    );
+                }
             }
 
-            @Test
-            void forMakeACoffeeWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("C::", new BigDecimal("0.9")),
-                        "Drink maker makes 1 coffee with no sugar and therefore no stick"
-                );
-            }
+            @Nested
+            class WithExtraHot {
+                @Test
+                void forMakeATeaWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Th:1:0", new BigDecimal("1.0")),
+                            "(Drink maker will make an extra hot tea with one sugar and a stick)"
+                    );
+                }
 
-            @Test
-            void forMakeAChocolateWithAnySugarNumber() {
-                assertsThatOrderSentAreCorrect(
-                        new Order("H:4:0", new BigDecimal("7.5")),
-                        "Drink maker makes 1 chocolate with 4 sugar and a stick"
-                );
+                @Test
+                void forMakeACoffeeWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Ch::", new BigDecimal("0.9")),
+                            "(Drink maker will make an extra hot coffee with no sugar)"
+                    );
+                }
+
+                @Test
+                void forMakeAChocolateWithAnySugarNumber() {
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Hh:2:0", new BigDecimal("7.5")),
+                            "(Drink maker will make an extra hot chocolate with two sugar and a stick)"
+                    );
+                }
             }
         }
 
     }
 
-
     @Nested
     class ShouldNotMakeADrink {
         @Nested
         class WithAnInsufficientAmount {
-            @Test
-            void thenSendInstructionAboutTheMissingAmountForaTea(){
-                assertsThatOrderSentAreCorrect(
-                        new Order("T:2:0", new BigDecimal("0.2")),
-                        "There are 0.20 cents missing to make a tea."
-                );
+            @Nested
+            class WithoutExtraHot {
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForATea(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("T:2:0", new BigDecimal("0.2")),
+                            "(There are 0.20 cents missing to make one tea)"
+                    );
+                }
+
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForACoffee(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("C::", new BigDecimal("0.1")),
+                            "(There are 0.50 cents missing to make one coffee)"
+                    );
+                }
+
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForAChocolate(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("H:1:0", new BigDecimal("0.3")),
+                            "(There are 0.20 cents missing to make one chocolate)"
+                    );
+                }
+
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForaOrangeJuice(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("O::", new BigDecimal("0.2")),
+                            "(There are 0.40 cents missing to make one orange juice)"
+                    );
+                }
             }
 
-            @Test
-            void thenSendInstructionAboutTheMissingAmountForaCoffee(){
-                assertsThatOrderSentAreCorrect(
-                        new Order("C::", new BigDecimal("0.1")),
-                        "There are 0.50 cents missing to make a coffee."
-                );
-            }
+            @Nested
+            class WithExtraHot {
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForATea(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Th:2:0", new BigDecimal("0.2")),
+                            "(There are 0.20 cents missing to make one tea)"
+                    );
+                }
 
-            @Test
-            void thenSendInstructionAboutTheMissingAmountForaChocolate(){
-                assertsThatOrderSentAreCorrect(
-                        new Order("H:1:0", new BigDecimal("0.3")),
-                        "There are 0.20 cents missing to make a chocolate."
-                );
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForACoffee(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Ch::", new BigDecimal("0.1")),
+                            "(There are 0.50 cents missing to make one coffee)"
+                    );
+                }
+
+                @Test
+                void thenSendInstructionAboutTheMissingAmountForAChocolate(){
+                    assertsThatOrderSentAreCorrect(
+                            new Order("Hh:1:0", new BigDecimal("0.3")),
+                            "(There are 0.20 cents missing to make one chocolate)"
+                    );
+                }
             }
         }
     }
