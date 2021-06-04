@@ -1,4 +1,4 @@
-package fr.chakib.houd.kata.manufacture.core.domain.message;
+package fr.chakib.houd.kata.manufacture.core.domain.instruction;
 
 import fr.chakib.houd.kata.manufacture.core.domain.Order;
 

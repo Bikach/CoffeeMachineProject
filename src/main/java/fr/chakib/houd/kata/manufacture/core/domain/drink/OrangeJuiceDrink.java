@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class OrangeJuiceDrink extends Drink {
 
     public OrangeJuiceDrink() {
-        super("O", new BigDecimal("0.6"), " one orange juice)");
+        super("O", new BigDecimal("0.6"), "orange juice");
     }
 
     @Override

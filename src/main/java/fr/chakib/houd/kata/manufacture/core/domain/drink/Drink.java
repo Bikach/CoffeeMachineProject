@@ -4,8 +4,6 @@ import java.math.RoundingMode;
 
 public abstract class Drink {
 
-    protected static final String DEFAULT_QUANTITY = " one ";
-
     protected final String protocol;
     protected final BigDecimal amount;
     protected final String instruction;
@@ -20,8 +18,8 @@ public abstract class Drink {
     public abstract String instruction();
 
     protected void verifiesThatAmountIsEnoughToCoverTheCosts(String drinkSelected, BigDecimal amountReceived) {
-        if(protocol.equals(drinkSelected) && amount.compareTo(amountReceived) > 0)
-            throw new InsufficientAmountProtocolException(missingAmount(amount, amountReceived), instruction);
+        if(drinkSelected.contains(protocol) && amount.compareTo(amountReceived) > 0)
+            throw new InsufficientAmountException(missingAmount(amount, amountReceived), instruction);
     }
 
     protected boolean receivedAnAmountAtLeastEqualToTheCost(BigDecimal amountReceived) {

@@ -11,11 +11,11 @@ public class ChocolateDrink extends Drink {
     @Override
     public boolean validateSelection(String drinkSelected, BigDecimal amountReceived){
         verifiesThatAmountIsEnoughToCoverTheCosts(drinkSelected, amountReceived);
-        return protocol.equals(drinkSelected) && receivedAnAmountAtLeastEqualToTheCost(amountReceived);
+        return drinkSelected.contains(protocol) && receivedAnAmountAtLeastEqualToTheCost(amountReceived);
     }
 
     @Override
     public String instruction() {
-        return DEFAULT_QUANTITY + instruction;
+        return instruction;
     }
 }

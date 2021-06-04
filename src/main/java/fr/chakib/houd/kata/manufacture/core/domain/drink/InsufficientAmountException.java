@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import static java.lang.String.format;
 
-public class InsufficientAmountProtocolException extends IllegalArgumentException {
-    public InsufficientAmountProtocolException(BigDecimal missingAmount, String drink) {
+public class InsufficientAmountException extends IllegalArgumentException {
+    public InsufficientAmountException(BigDecimal missingAmount, String drink) {
         super(format("(There are %s cents missing to make one %s)", missingAmount.toString(), drink));
     }
 }

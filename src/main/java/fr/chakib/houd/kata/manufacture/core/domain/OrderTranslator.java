@@ -1,14 +1,16 @@
 package fr.chakib.houd.kata.manufacture.core.domain;
 
-import fr.chakib.houd.kata.manufacture.core.domain.drink.InsufficientAmountProtocolException;
-import fr.chakib.houd.kata.manufacture.core.domain.message.DrinkInstruction;
-import fr.chakib.houd.kata.manufacture.core.domain.message.StickInstruction;
-import fr.chakib.houd.kata.manufacture.core.domain.message.SugarInstruction;
+import fr.chakib.houd.kata.manufacture.core.domain.drink.InsufficientAmountException;
+import fr.chakib.houd.kata.manufacture.core.domain.instruction.DrinkInstruction;
+import fr.chakib.houd.kata.manufacture.core.domain.instruction.ExtraHotInstruction;
+import fr.chakib.houd.kata.manufacture.core.domain.instruction.StickInstruction;
+import fr.chakib.houd.kata.manufacture.core.domain.instruction.SugarInstruction;
 
 public class OrderTranslator {
 
     private static final String INFORMATION_PROTOCOLE = "M";
     private static final String DEFAULT_MESSAGE = "Drink maker forwards any message received onto the coffee machine interface for the customer to see";
+    public static final String MESSAGE_START = "(Drink maker will make";
 
     private final Order order;
 
@@ -19,13 +21,16 @@ public class OrderTranslator {
     public String translate(){
         if(containInformationProtocole())
             return DEFAULT_MESSAGE;
-        return concatCustomerMessage();
+        return concatCustomerInstructions();
     }
 
-    private String concatCustomerMessage() {
+    private String concatCustomerInstructions() {
         try {
-          return new DrinkInstruction(new SugarInstruction(new StickInstruction())).concat(order, "(Drink maker will make");
-        }catch (InsufficientAmountProtocolException e){
+          return new ExtraHotInstruction(
+                    new DrinkInstruction(
+                        new SugarInstruction(
+                            new StickInstruction()))).concat(order, MESSAGE_START);
+        }catch (InsufficientAmountException e){
             return e.getMessage();
         }
     }

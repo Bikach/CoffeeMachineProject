@@ -1,9 +1,10 @@
-package fr.chakib.houd.kata.manufacture.core.domain.message;
+package fr.chakib.houd.kata.manufacture.core.domain.instruction;
 
 import fr.chakib.houd.kata.manufacture.core.domain.Order;
 
 import java.util.stream.Stream;
 
+import static fr.chakib.houd.kata.manufacture.core.domain.instruction.SugarInstruction.TranslateSugarNumber.translate;
 import static java.util.stream.Collectors.joining;
 
 public class SugarInstruction implements Instruction {
@@ -20,7 +21,7 @@ public class SugarInstruction implements Instruction {
     public String concat(Order order, String message) {
         if(hasNotSugar(order.extractSugar()))
             return message + NO_SUGAR_INSTRUCTION;
-        return instructionDecorator.concat(order, message + TranslateSugarNumber.translate(order.extractSugar()));
+        return instructionDecorator.concat(order, message + translate(order.extractSugar()));
     }
 
     private boolean hasNotSugar(String number) {
